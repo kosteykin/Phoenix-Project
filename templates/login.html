@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            Неверное имя пользователя или пароль.
+        </div>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <div class="alert alert-danger">
+                <p>Доступ запрещен.</p>
+            </div>
+        {% else %}
+            <div class="alert alert-danger">
+                <p>Пожалуйста, войдите чтобы для доступа к этой странице.</div>
+        {% endif %}
+    {% endif %}
+
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="form-group col-md-4">
+            <label for="id_username">Логин:</label>
+            <input type="text" name="username" class="form-control" id="id_username">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="id_password">Пароль:</label>
+            <input type="password" name="password" class="form-control" id="id_password">
+        </div>
+        <button type="submit" class="btn btn-info">Войти</button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+
+{% endblock %}

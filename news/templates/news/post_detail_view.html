@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.post_title }}{% endblock %}
+
+
+{% block content %}
+
+    <h1 class="text-center">{{ post.post_title }}</h1>
+    <p> {{ post.post_full_description|safe }}</p>
+
+    <div class="news">
+        <div class="news_info">Дата: <b>{{ post.post_publication_date|date:"d.m.Y H:i" }}</b> |
+            Автор: <b>{{ post.post_author }}</b>
+        </div>
+    </div>
+
+{% endblock %}

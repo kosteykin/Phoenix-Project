@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Задачи проекта - {{ project_name }}{% endblock %}
+
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'taskadd' %}">
+            <button type="button" class="btn btn-success">Добавить задачу</button>
+        </a>
+    {% endif %}
+    {% if tasks_list %}
+
+        <div class="table-responsive-sm">
+
+            <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th style="text-align:center" scope="col">#</th>
+                    <th style="text-align:center" scope="col">Трекер</th>
+                    <th style="text-align:center" scope="col">Статус</th>
+                    <th style="text-align:center" scope="col">Описание</th>
+                    <th style="text-align:center" scope="col">Категория</th>
+                    <th style="text-align:center" scope="col">Затраченное время</th>
+                    <th style="text-align:center" scope="col">Готовность</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for tasks in tasks_list %}
+                    <tr>
+                        <th style="text-align:center" scope="row"><a href="#">{{ tasks.pk }}</a></th>
+                        <td style="text-align:center">{{ tasks.tasks_tracker }}</td>
+                        <td style="text-align:center">{{ tasks.tasks_status }}</td>
+                        <td style="text-align:center"><a href="#">{{ tasks.tasks_title }}</a></td>
+                        <td style="text-align:center">{{ tasks.tasks_category }}</td>
+                        <td style="text-align:center">{{ tasks.tasks_time_evaluation }} ч.</td>
+                        <td style="text-align:center">{{ tasks.tasks_prepared }}%</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}

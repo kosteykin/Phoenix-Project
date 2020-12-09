@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.project_name }}{% endblock %}
+
+
+{% block content %}
+
+    <h1 style="text-align: center">{{ project.project_name }}</h1>
+    <p>{{ project.project_full_description }}</p>
+    Автор: <b>{{ project.project_author }}</b>
+    <hr>
+    Последние пять новостей проекта <b>{{ project.project_name }}</b>:
+    {% if news_count_list == 0 %}
+        Новостей нет
+    {% else %}
+    {% endif %}
+    {% if news_project_list %}
+        {% for news in news_project_list %}
+            <li>
+                <a href="{% url 'project:project_news_detail' news.id %}">{{ news.news_title|safe }}</a>
+            </li>
+        {% endfor %}
+        <button type="button" class="btn btn-info">Посмотреть все новости</button>
+    {% endif %}
+
+    <hr>
+
+    {% if countlist == 0 %}
+        Задачи: <b>0</b> <br>
+        <a href="/projects/">
+            <button type="button" class="btn btn-info">Назад</button>
+        </a>
+
+    {% else %}
+        Задачи: <a href="{% url 'project:project_tasks_view' project.id %}"><b>{{ countlist }}</b></a>  из них:
+
+        <li>Bug: <b>{{ bug_list }}</b></li>
+        <li>Feature: <b>{{ feature_list }}</b></li>
+        <li>Support: <b>{{ support_list }}</b></li>
+
+        <a href="{% url 'project:project_tasks_view' project.id %}">
+            <button type="button" class="btn btn-info">Посмотреть все задачи</button>
+        </a>
+        <a href="/projects/">
+            <button type="button" class="btn btn-info">Назад</button>
+        </a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+
+
+    {% if post_list %}
+        <div class="news_list">
+            <ul>
+                {% for post in post_list %}
+                    <div class="news">
+                        <li><a
+                                href="{% url 'news:post_detail' post.id post.post_slug %}">{{ post.post_title|safe }}</a>
+                            <div>{{ post.post_short_description }}</div>
+                            <div class="news_info">Дата: <b>{{ post.post_publication_date|date:"d.m.Y H:i" }}</b> |
+                                Автор: <b>{{ post.post_author }}</b>
+                            </div>
+                        </li>
+                    </div>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <nav aria-label="post_list">
+            <ul class="pagination">
+
+                {% if post_list.has_previous %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ post_list.previous_page_number }}">Назад</a>
+                    </li>
+                {% endif %}
+
+                {% for num in post_list.paginator.page_range %}
+                    {% if num == post_list.number %}
+                        <li class="page-item active" aria-current="page"><span class="page-link">{{ num }} <span
+                                class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}"> <b>{{ num }}</b> </a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if post_list.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ post_list.next_page_number }}">
+                        Далее
+                    </a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+
+    {% else %}
+        <p>В данный момент новостей нет.</p>
+    {% endif %}
+
+{% endblock %}

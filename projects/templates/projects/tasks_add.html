@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить задачу{% endblock %}
+
+
+{% block content %}
+    <form method="POST">{% csrf_token %}
+        <div class="form-group col-md-4">
+            {% if get_project_list %}
+                <label for="id_tasks_project_id">Проект:</label>
+                <select name="tasks_project_id" id="id_tasks_project_id" class="form-control">
+                    <option value="" selected>---------</option>
+                    {% for project in get_project_list %}
+                        <option value="{{ project.pk }}">{{ project.project_name }}</option> {# value 1 - Phoenix #}
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="id_tasks_tracker">Трекер:</label><span style="color: red">*</span>
+            <select name="tasks_tracker" id="id_tasks_tracker" class="form-control">
+                <option>Bug</option>
+                <option>Feature</option>
+                <option>Support</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="id_tasks_title">Тема:</label><span style="color: red">*</span>
+            <input type="text" name="tasks_title" class="form-control" id="id_tasks_title" maxlength="100" required>
+        </div>
+
+        <div class="form-group col-md-10">
+            <label for="id_tasks_description">Описание:</label>
+            <input type="text" name="tasks_description" class="form-control" id="id_tasks_description" maxlength="5000">
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="id_tasks_status">Статус:</label><span style="color: red">*</span>
+            <input type="text" readonly name="tasks_status" class="form-control" id="id_tasks_status" value="New"
+                   maxlength="50" required>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="id_tasks_priority">Приоритет:</label><span style="color: red">*</span>
+            <select name="tasks_priority" id="id_tasks_priority" class="form-control">
+                <option>Low</option>
+                <option selected>Normal</option>
+                <option>High</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="id_tasks_assigned">Автор:</label><span style="color: red">*</span>
+            <input type="text" readonly name="tasks_assigned" class="form-control" id="id_tasks_assigned"
+                   required value={{ user.username }}>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="id_tasks_start_date">Дата начала:</label><span style="color: red">*</span>
+            <input type="date" name="tasks_start_date" value="{% now 'Y-m-d' %}" class="form-control"
+                   id="id_tasks_start_date" required>
+        </div>
+
+        <a href="{% url 'tasklist' %}">
+            <button type="button" class="btn btn-info">Назад</button>
+        </a>
+        <button type="submit" class="btn btn-success">Добавить</button>
+
+    </form>
+
+{% endblock %}

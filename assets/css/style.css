@@ -1,0 +1,35 @@
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.news {
+    padding-bottom: 10px;
+}
+
+.news_list {
+
+}
+
+.news_list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.news_info {
+    padding: 0 0 0 5px;
+    color: #333;
+    border: 1px solid #e5e5e5;
+    background-color: #f9f9f9;
+}
+
+.jumbotron {
+  padding: 1.5rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: 0.3rem;
+}
